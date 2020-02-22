@@ -1,0 +1,17 @@
+
+#ros'u başlat
+roscore
+
+#gazeboyu çalıştır
+rosrun gazebo_ros gazebo /usr/share/gazebo-9/worlds/iris_stm.world
+
+
+#sitl'ı çalıştır
+cd ~/ardupilot/ArduCopter
+../Tools/autotest/sim_vehicle.py -f gazebo-iris --console --map
+
+#kamerayı aç
+cd Desktop
+python kamera.py
+
+
