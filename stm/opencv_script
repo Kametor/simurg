@@ -1,0 +1,57 @@
+#get update ile son gelen güncellemeler alınıyor
+sudo apt-get update
+# upgrade ile güncellemeler yükleniyor.
+sudo apt-get upgrade
+
+#Bu kod ile bazı gerekli paketler indiriliyor. Github erişimi için git, compile öncesi hazırlık yapmak için cmake, görseller için gtk, paket bilgileri için pkg-config, video ses encodingi için libavcodec libavformat lbswscale indiriliyor : 
+sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+
+#Bu kod ile videolar ile alakalı gstreamer indiriliyor.
+sudo apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+#Bu kod ile python 2.7 ve 3.6 paketleri indiriliyor.
+sudo apt-get install -y python2.7-dev python3.6-dev python-dev python-numpy python3-numpy
+
+sudo apt-get install -y libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
+#Burada libjasper kütüphanesi debian sourcedan ekleniyor ve öyle yükleniyor.
+sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
+sudo apt update
+sudo apt install libjasper1 libjasper-dev
+
+sudo apt-get install -y libv4l-dev v4l-utils qv4l2 v4l2ucp
+#Bu kod ile internetten bir şeyler indirmemize yarayan wget'e benzer curl indiriliyor.
+sudo apt-get install -y curl
+#Burada python için paket yükleme aracı olan pip indiriliyor. 
+sudo apt-get install python-pip
+sudo apt-get update
+
+cd ~
+#burada opencv 3.4.0 contrib versiyonu ile beraber zip dosyası halinde indiriliyor.
+wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.0.zip
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.4.0.zip
+#Burada dosyalar unzip ediliyor.
+unzip opencv.zip
+unzip opencv_contrib.zip
+# opencv 3.4.0 olan adını opencvye çeviriyor. pek de gerekli bir şey değil, maksat kolaylık olsun. 
+mv opencv-3.4.0 opencv
+mv opencv_contrib-3.4.0 opencv_contrib
+# Bu kod ile numpy kütüphanesi pythona kuruluyor.
+pip install numpy
+cd ~/opencv
+# unzip edilen opencv dosyasnın içinde build klasörü oluşturuluyor. dosyanın isminin build olmasının hiçbir önemi yok.
+mkdir build
+cd build
+#Burada opencv cmake ediliyor.
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_CUDA=OFF -D INSTALL_PYTHON_EXAMPLES=ON -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules -D OPENCV_ENABLE_NONFREE=ON -D BUILD_EXAMPLES=ON ..
+#burada opencv compile ediliyor.
+make -j8
+#sudo make install ile opencv kuruluyor.
+sudo make install
+sudo ldconfig
+
+#en son bu kodu girince 3.4.0 yazması gerekiyor
+pkg-config --modversion opencv
+
+
+
+
+

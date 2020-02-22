@@ -1,0 +1,27 @@
+1_ ROS'u kuruyoruz.
+http://wiki.ros.org/melodic/Installation/Ubuntu
+2_ Gazeboyu kuruyoruz. gazebo11 yazan her yere gazebo9 yazıyoruz.
+http://gazebosim.org/tutorials?tut=install_ubuntu
+Gazeoboyu başlatmadan önce en son şu paketi yükleyiniz : 
+sudo apt upgrade libignition-math2
+3_Ardupilotu kuruyoruz
+https://ardupilot.org/dev/docs/building-setup-linux.html#building-setup-linux
+4_Bu eklentiyi de kurunuz  :
+echo "export SVGA_VGPU10=0" >> ~/.bashrc
+source ~/.bashrc
+git clone -b gazebo9 https://github.com/SwiftGust/ardupilot_gazebo.git
+cd ardupilot_gazebo
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+sudo gedit ~/.bashrc
+#Copy & Paste Followings at the end of .bashrc file
+source /usr/share/gazebo/setup.sh
+
+export GAZEBO_MODEL_PATH=~/ardupilot_gazebo/gazebo_models:${GAZEBO_MODEL_PATH}
+export GAZEBO_RESOURCE_PATH=~/ardupilot_gazebo/gazebo_worlds:${GAZEBO_RESOURCE_PATH}
+
+5_ Gönderilen dokumanın 6. adımından itibaren devam ediniz. iris_with_standoffs_demo dosyası ardupilot_gazebo/gazebo_models dosyası içindedir. belirtilen işlemleri oradan yapınız.
+
