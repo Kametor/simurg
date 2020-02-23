@@ -1,0 +1,5 @@
+classes= 6
+train  = data/img/train.txt
+valid  = data/img/test.txt
+names = /home/ordulu/darknet/data/obj.names
+backup = backup/
